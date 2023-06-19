@@ -1,0 +1,97 @@
+.one {
+  width: 30px;
+  height: 30px;
+  background: url('~/assets/images/icons.png') no-repeat;
+}
+
+.two {
+  width: 30px;
+  height: 30px;
+  background: url('~/assets/images/icons.png') no-repeat;
+  background-position: -30px 0;
+}
+
+.three {
+  width: 30px;
+  height: 30px;
+  background: url('~/assets/images/icons.png') no-repeat;
+  background-position: -60px 0;
+}
+
+.four {
+  width: 30px;
+  height: 30px;
+  background: url('~/assets/images/icons.png') no-repeat;
+  background-position: -90px 0;
+}
+
+.five {
+  width: 30px;
+  height: 30px;
+  background: url('~/assets/images/icons.png') no-repeat;
+  background-position: -120px 0;
+}
+
+.six {
+  width: 30px;
+  height: 30px;
+  background: url('~/assets/images/icons.png') no-repeat;
+  background-position: -150px 0;
+}
+
+.seven {
+  width: 30px;
+  height: 30px;
+  background: url('~/assets/images/icons.png') no-repeat;
+  background-position: -180px 0;
+}
+
+.eight {
+  width: 30px;
+  height: 30px;
+  background: url('~/assets/images/icons.png') no-repeat;
+  background-position: -210px 0;
+}
+
+.question {
+  width: 30px;
+  height: 30px;
+  background: rgb(155 155 155);
+  background-position: -240px 0;
+}
+
+.flag {
+  width: 30px;
+  height: 30px;
+  background: url('~/assets/images/icons.png') no-repeat;
+  background: rgb(155 155 155);
+  background-position: -270px 0;
+}
+
+.mine {
+  width: 30px;
+  height: 30px;
+  background: url('~/assets/images/icons.png') no-repeat;
+  background-position: -300px 0;
+}
+
+.smile {
+  width: 30px;
+  height: 30px;
+  background: url('~/assets/images/icons.png') no-repeat;
+  background-position: -330px 0;
+}
+
+.sunglasses {
+  width: 30px;
+  height: 30px;
+  background: url('~/assets/images/icons.png') no-repeat;
+  background-position: -360px 0;
+}
+
+.gameover {
+  width: 30px;
+  height: 30px;
+  background: url('~/assets/images/icons.png') no-repeat;
+  background-position: -390px 0;
+}
