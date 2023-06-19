@@ -33,13 +33,13 @@ const Home = () => {
   const [board, setBoard] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0, 0], // 0
     [0, 1, 2, 3, 4, 5, 6, 7, 8], // 1
-    [0, 0, 0, 9, 10, 11, 0, 0, 0], // 2
+    [0, 0, 9, 10, 11, 12, 13, 14, 0], // 2
     [0, 0, 0, 0, 0, 0, 0, 0, 0], // 3
-    [0, 0, 0, 0, 0, 0, 0, 0, 0], // 4
-    [0, 0, 0, 0, 0, 0, 0, 0, 0], // 5
-    [0, 0, 0, 0, 0, 0, 0, 0, 0], // 6
-    [0, 0, 0, 0, 0, 0, 0, 0, 0], // 7
-    [0, 0, 0, 0, 0, 0, 0, 0, 0], // 8
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 4
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 5
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 6
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 7
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 8
   ]);
   const onClickCell = (x: number, y: number, event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -59,7 +59,13 @@ const Home = () => {
   };
 
   const openCell = (x: number, y: number) => {
-    console.log('openCell', x, y);
+    if (board[y][x] === -1) {
+      setBoard((prev) => {
+        const newBoard = [...prev];
+        newBoard[y][x] = 0;
+        return newBoard;
+      });
+    }
   };
 
   return (
@@ -69,7 +75,7 @@ const Home = () => {
           {board.map((row, y) =>
             row.map((cell, x) => (
               <div
-                className={styles.cell}
+                className={cell === 0 ? styles.voidCell : styles.cell}
                 style={{
                   backgroundPosition: `${(cell - 1) * -30}px 0`,
                 }}
