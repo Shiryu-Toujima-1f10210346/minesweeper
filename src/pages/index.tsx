@@ -80,6 +80,8 @@ const Home = () => {
         newBoard[y][x] = 0;
         return newBoard;
       });
+    } else if (userInputs[y][x] === 10) {
+      return;
     }
   };
 
@@ -96,15 +98,21 @@ const Home = () => {
                   backgroundPosition: `${(cell - 1) * -30}px 0`,
                   position: 'relative', // Add position property
                 }}
+                onContextMenu={(event) => onClickCell(x, y, event)}
                 key={`${x}-${y}`}
               >
                 {/* Place the cover inside the cell */}
                 <div
                   className={styles.cover}
-                  onClick={(event) => onClickCell(x, y, event)}
                   style={
-                    userInputs[y][x] === 0 ? { visibility: 'hidden' } : { visibility: 'visible' }
+                    userInputs[y][x] === 0
+                      ? { visibility: 'hidden' }
+                      : {
+                          visibility: 'visible',
+                          backgroundPosition: `${(userInputs[y][x] - 1) * -22}px 0`,
+                        }
                   }
+                  onClick={(event) => onClickCell(x, y, event)}
                   onContextMenu={(event) => onClickCell(x, y, event)}
                 />
               </div>

@@ -144,12 +144,14 @@
   z-index: 1;
   width: 30px;
   height: 30px;
-  background: rgb(128 128 128);
   border-bottom: 5px solid #595959;
   border-right: 5px solid #595959;
   border-top: 5px solid #fff;
   border-left: 5px solid #fff;
-  opacity: 1;
+  background: url('~/assets/images/icons.png') no-repeat;
+  background-size: cover;
+  background-position: -198px 0;
+  background-color: rgb(198 198 198);
 }
 
 .marks {
