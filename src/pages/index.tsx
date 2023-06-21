@@ -32,8 +32,8 @@ const Home = () => {
   // 11 -> bomb
   const [board, setBoard] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0, 0], // 0
-    [1, 2, 3, 4, 5, 6, 7, 8, 9], // 1
-    [1, 2, 3, 4, 5, 6, 7, 8, 9], // 2
+    [1, 2, 3, 4, 5, 6, 7, 8, 0], // 1
+    [1, 2, 3, 4, 5, 6, 7, 8, 0], // 2
     [0, 0, 0, 0, 0, 0, 0, 0, 0], // 3
     [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 4
     [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 5
@@ -48,6 +48,27 @@ const Home = () => {
     } else {
       openCell(x, y);
     }
+  };
+  //最初にクリックしたときに押した座標以外に爆弾を配置する
+  const setBomb = (x: number, y: number) => {
+    const newBombMap = [...bombMap];
+    for (let i = 0; i < bombCount; i++) {
+      const bombX = Math.floor(Math.random() * 9);
+      const bombY = Math.floor(Math.random() * 9);
+      if (bombX === x && bombY === y) {
+        i--;
+        continue;
+      }
+      if (newBombMap[bombY][bombX] === 11) {
+        i--;
+
+        continue;
+      }
+      newBombMap[bombY][bombX] = 11;
+    }
+    setBombMap(newBombMap);
+    console.log('↓bombMap↓');
+    console.table(bombMap);
   };
 
   const setFlag = (x: number, y: number) => {
@@ -70,9 +91,19 @@ const Home = () => {
         return newBoard;
       });
     }
+    console.log('↓userInputs↓');
+    console.table(userInputs);
   };
 
   const openCell = (x: number, y: number) => {
+    //userInputsの値が全て-1のときに
+    if (userInputs.every((row) => row.every((cell) => cell === -1))) {
+      setBomb(x, y);
+    }
+    if (bombMap[y][x] === 11) {
+      console.log('gameover');
+      document.getElementsByClassName(styles.gameover)[0].innerHTML = 'ぼかーん!';
+    }
     if (userInputs[y][x] === -1) {
       console.log('open');
       setUserInputs((prev) => {
@@ -88,9 +119,12 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <div className={styles.frame}>
-        <div className={styles.top} />
+        <div className={styles.top}>
+          <div className={styles.reset} />
+          <div className={styles.gameover} />
+        </div>
         <div className={styles.board}>
-          {board.map((row, y) =>
+          {bombMap.map((row, y) =>
             row.map((cell, x) => (
               <div
                 className={styles.cell}
@@ -124,7 +158,3 @@ const Home = () => {
   );
 };
 export default Home;
-
-/*
-
-*/

@@ -189,3 +189,24 @@
   border-left: 10px solid #595959;
   margin-bottom: 30px;
 }
+
+.reset {
+  height: 60px;
+  width: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  background: url('~/assets/images/icons.png') no-repeat;
+  background-size: cover;
+  background-position: -480px 0;
+  border-bottom: 10px solid #595959;
+  border-right: 10px solid #595959;
+  border-top: 10px solid #fff;
+  border-left: 10px solid #fff;
+}
+
+.gameover {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: large;
+  text-align: center;
+}
