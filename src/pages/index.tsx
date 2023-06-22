@@ -86,7 +86,7 @@ const Home = () => {
 
   //boardにbombMapをセットする
 
-  const mergeMap = (): number[][] => {
+  const mergeMap = (): void => {
     const newBoard: number[][] = [];
 
     for (let row = 0; row < Math.max(bombMap.length, board.length); row++) {
@@ -161,7 +161,7 @@ const Home = () => {
   };
 
   const openCell = (x: number, y: number) => {
-    //userInputsの値が全て-1のときに
+    //userInputsの値が全て-1のときに爆弾設置
     if (userInputs.every((row) => row.every((cell) => cell === -1))) {
       setBomb(x, y);
     }
@@ -170,12 +170,6 @@ const Home = () => {
       document.getElementsByClassName(styles.gameover)[0].innerHTML = 'ぼかーん!';
     }
     if (userInputs[y][x] === -1) {
-      console.log('open');
-      setUserInputs((prev) => {
-        const newBoard = [...prev];
-        newBoard[y][x] = 0;
-        return newBoard;
-      });
     } else if (userInputs[y][x] === 10) {
       return;
     }
