@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './index.module.css';
 const Home = () => {
+  const [gameOver, setGameOver] = useState(false);
   const [userInputs, setUserInputs] = useState<(0 | 9 | 10 | -1)[][]>([
     [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 0
     [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 1
@@ -108,7 +109,7 @@ const Home = () => {
     event.preventDefault();
     if (event.button === 2) {
       setFlag(x, y);
-    } else {
+    } else if (gameOver === false) {
       openCell(x, y);
     }
   };
@@ -167,6 +168,7 @@ const Home = () => {
     }
     if (bombMap[y][x] === 11) {
       console.log('gameover');
+      setGameOver(true);
       document.getElementsByClassName(styles.gameover)[0].innerHTML = 'ぼかーん!';
     }
     if (userInputs[y][x] === -1) {
