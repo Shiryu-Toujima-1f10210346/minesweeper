@@ -24,7 +24,7 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
-  const bombCount = 20;
+  const [bombCount, setBombNum] = useState(10);
   // -1 ->stone
   // 0 -> 空
   // 1 ~ 8 -> 周りの爆弾の数
@@ -54,6 +54,22 @@ const Home = () => {
     [-1, 0], //左
   ];
   //bombMapを参照しdirectionを使って周りの爆弾の数を計算してboardにセットする
+
+  const reset = () => {
+    setGameOver(false);
+    setUserInputs([
+      [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 0
+      [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 1
+      [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 2
+      [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 3
+      [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 4
+      [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 5
+      [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 6
+      [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 7
+      [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 8
+    ]);
+  };
+
   const setBombCount = (): void => {
     const newBoard: number[][] = [...board]; // Create a copy of the board
 
@@ -195,7 +211,7 @@ const Home = () => {
     <div className={styles.container}>
       <div className={styles.frame}>
         <div className={styles.top}>
-          <div className={styles.reset} />
+          <div className={styles.reset} onClick={reset} />
           <div className={styles.gameover} />
         </div>
         <div className={styles.board}>
@@ -218,7 +234,7 @@ const Home = () => {
                       ? { visibility: 'hidden' }
                       : {
                           visibility: 'visible',
-                          backgroundPosition: `${(userInputs[y][x] - 1) * -22}px 0`,
+                          backgroundPosition: `${(userInputs[y][x] - 1) * -20}px 0`,
                         }
                   }
                   onClick={(event) => onClickCell(x, y, event)}

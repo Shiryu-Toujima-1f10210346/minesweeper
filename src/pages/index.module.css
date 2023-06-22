@@ -152,12 +152,14 @@
   background-size: cover;
   background-position: -198px 0;
   background-color: rgb(198 198 198);
+  box-sizing: 30px;
 }
 
 .marks {
   width: 40px;
   height: 40px;
   border: 5px solid #595959;
+  box-sizing: 40px;
 
   /* border-top: 6px solid #fff;
   border-right: 6px solid #595959;
@@ -203,6 +205,14 @@
   border-right: 10px solid #595959;
   border-top: 10px solid #fff;
   border-left: 10px solid #fff;
+}
+
+.reset:active {
+  border-bottom: 10px solid #fff;
+  border-right: 10px solid #fff;
+  border-top: 10px solid #595959;
+  border-left: 10px solid #595959;
+  background-position: -475px 5px;
 }
 
 .gameover {
