@@ -150,7 +150,7 @@
   border-left: 5px solid #fff;
   background: url('~/assets/images/icons.png') no-repeat;
   background-size: cover;
-  background-position: -198px 0;
+  background-position: -200px 0;
   background-color: rgb(198 198 198);
   box-sizing: 30px;
 }
@@ -197,14 +197,14 @@
   width: 60px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20px;
   background: url('~/assets/images/icons.png') no-repeat;
   background-size: cover;
-  background-position: -480px 0;
+  background-position: -448px 0;
   border-bottom: 10px solid #595959;
   border-right: 10px solid #595959;
   border-top: 10px solid #fff;
   border-left: 10px solid #fff;
+  box-sizing: 40px;
 }
 
 .reset:active {
@@ -212,10 +212,16 @@
   border-right: 10px solid #fff;
   border-top: 10px solid #595959;
   border-left: 10px solid #595959;
-  background-position: -475px 5px;
+  background-position: -447px 1px;
 }
 
 .gameover {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: large;
+  text-align: center;
+}
+
+.bombcount {
   font-family: 'Courier New', Courier, monospace;
   font-size: large;
   text-align: center;

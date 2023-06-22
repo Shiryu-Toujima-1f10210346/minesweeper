@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './index.module.css';
 const Home = () => {
-  const [gameOver, setGameOver] = useState(false);
+  const [gameOver, setGameOver] = useState('playing');
   const [userInputs, setUserInputs] = useState<(0 | 9 | 10 | -1)[][]>([
     [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 0
     [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 1
@@ -56,7 +56,7 @@ const Home = () => {
   //bombMapを参照しdirectionを使って周りの爆弾の数を計算してboardにセットする
 
   const reset = () => {
-    setGameOver(false);
+    setGameOver('playing');
     setUserInputs([
       [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 0
       [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 1
@@ -68,6 +68,29 @@ const Home = () => {
       [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 7
       [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 8
     ]);
+    setBombMap([
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ]);
+    setBoard([
+      [0, 0, 0, 0, 0, 0, 0, 0, 0], // 0
+      [0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
+      [0, 0, 0, 0, 0, 0, 0, 0, 0], // 2
+      [0, 0, 0, 0, 0, 0, 0, 0, 0], // 3
+      [0, 0, 0, 0, 0, 0, 0, 0, 0], // 4
+      [0, 0, 0, 0, 0, 0, 0, 0, 0], // 5
+      [0, 0, 0, 0, 0, 0, 0, 0, 0], // 6
+      [0, 0, 0, 0, 0, 0, 0, 0, 0], // 7
+      [0, 0, 0, 0, 0, 0, 0, 0, 0], // 8
+    ]);
+    setBombNum(10);
   };
 
   const setBombCount = (): void => {
@@ -118,7 +141,7 @@ const Home = () => {
     event.preventDefault();
     if (event.button === 2) {
       setFlag(x, y);
-    } else if (gameOver === false) {
+    } else if (gameOver === 'playing') {
       openCell(x, y);
     }
   };
@@ -147,16 +170,22 @@ const Home = () => {
   };
 
   const setFlag = (x: number, y: number) => {
+    const newBombNum = bombCount;
     if (userInputs[y][x] === -1) {
       setUserInputs((prev) => {
         const newBoard = [...prev];
         newBoard[y][x] = 10;
+        setBombNum(newBombNum - 1);
+        if (newBombNum - 1 === 0) {
+          judge();
+        }
         return newBoard;
       });
     } else if (userInputs[y][x] === 10) {
       setUserInputs((prev) => {
         const newBoard = [...prev];
         newBoard[y][x] = 9;
+        setBombNum(newBombNum + 1);
         return newBoard;
       });
     } else if (userInputs[y][x] === 9) {
@@ -170,6 +199,20 @@ const Home = () => {
     console.table(userInputs);
   };
 
+  const judge = () => {
+    //userInputsの全ての10の位置がbombMapの11の位置と一致していたらクリア
+    const flag = userInputs.every((row, y) => {
+      return row.every((cell, x) => {
+        return cell === 10 ? bombMap[y][x] === 11 : true;
+      });
+    });
+    if (flag) {
+      console.log('clear!!!!');
+      setGameOver('clear');
+      document.getElementsByClassName(styles.gameover)[0].innerHTML = 'クリア!';
+    }
+  };
+
   const openCell = (x: number, y: number) => {
     //userInputsの値が全て-1のときに爆弾設置
     if (userInputs.every((row) => row.every((cell) => cell === -1))) {
@@ -177,8 +220,8 @@ const Home = () => {
     }
     if (bombMap[y][x] === 11) {
       console.log('gameover');
-      setGameOver(true);
-      document.getElementsByClassName(styles.gameover)[0].innerHTML = 'ぼかーん!';
+      setGameOver('gameover');
+      // document.getElementsByClassName(styles.gameover)[0].innerHTML = 'ぼかーん!';
     }
     if (userInputs[y][x] === -1) {
       console.log('open');
@@ -211,8 +254,9 @@ const Home = () => {
     <div className={styles.container}>
       <div className={styles.frame}>
         <div className={styles.top}>
+          <div className={styles.bombcount}>{bombCount}</div>
           <div className={styles.reset} onClick={reset} />
-          <div className={styles.gameover} />
+          <div className={styles.gameover}>{gameOver}</div>
         </div>
         <div className={styles.board}>
           {board.map((row, y) =>
