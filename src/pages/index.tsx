@@ -87,21 +87,14 @@ const Home = () => {
 
   //boardにbombMapをセットする
 
-  const mergeMap = (): void => {
-    const newBoard: number[][] = [];
-
-    for (let row = 0; row < Math.max(bombMap.length, board.length); row++) {
-      const newRow: number[] = [];
-      for (let col = 0; col < Math.max(bombMap[row]?.length || 0, board[row]?.length || 0); col++) {
-        const bombValue = bombMap[row]?.[col] || 0;
-        const boardValue = board[row]?.[col] || 0;
-        newRow.push(bombValue === 11 ? bombValue : boardValue);
+  const mergeMap = (a: number[][], b: number[][]) => {
+    for (let i = 0; i < a.length; i++) {
+      for (let j = 0; j < a[i].length; j++) {
+        board[i][j] = a[i][j] + b[i][j];
       }
-      newBoard.push(newRow);
     }
-
-    setBoard(newBoard); // Update the board with the new counts
-    console.log('↓Merged Map↓');
+    setBoard(board);
+    console.log('↓MergeMap↓');
     console.table(board);
   };
 
@@ -132,7 +125,7 @@ const Home = () => {
     }
     setBombMap(newBombMap);
     setBombCount();
-    mergeMap();
+    mergeMap(bombMap, board);
     console.log('↓bombMap↓');
     console.table(bombMap);
   };
@@ -173,6 +166,8 @@ const Home = () => {
     }
     if (userInputs[y][x] === -1) {
       console.log('open');
+      //押した場所の周りをみて0のところを開ける
+
       setUserInputs((prev) => {
         const newBoard = [...prev];
         newBoard[y][x] = 0;
