@@ -170,6 +170,12 @@ const Home = () => {
       document.getElementsByClassName(styles.gameover)[0].innerHTML = 'ぼかーん!';
     }
     if (userInputs[y][x] === -1) {
+      console.log('open');
+      setUserInputs((prev) => {
+        const newBoard = [...prev];
+        newBoard[y][x] = 0;
+        return newBoard;
+      });
     } else if (userInputs[y][x] === 10) {
       return;
     }
