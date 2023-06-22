@@ -24,7 +24,7 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
-  const bombCount = 10;
+  const bombCount = 20;
   // -1 ->stone
   // 0 -> 空
   // 1 ~ 8 -> 周りの爆弾の数
@@ -166,13 +166,26 @@ const Home = () => {
     }
     if (userInputs[y][x] === -1) {
       console.log('open');
-      //押した場所の周りをみて0のところを開ける
-
-      setUserInputs((prev) => {
-        const newBoard = [...prev];
-        newBoard[y][x] = 0;
-        return newBoard;
-      });
+      //押した場所の1マス周りをみて0のところを開ける
+      const newBoard = [...userInputs];
+      newBoard[y][x] = 0;
+      setUserInputs(newBoard);
+      if (board[y][x] === 0) {
+        for (const [dx, dy] of direction) {
+          const newRow = y + dy;
+          const newCol = x + dx;
+          if (
+            newRow >= 0 &&
+            newRow < bombMap.length &&
+            newCol >= 0 &&
+            newCol < bombMap[y].length &&
+            bombMap[newRow][newCol] === 0
+          ) {
+            openCell(newCol, newRow);
+          }
+        }
+      }
+      setUserInputs(newBoard);
     } else if (userInputs[y][x] === 10) {
       return;
     }
