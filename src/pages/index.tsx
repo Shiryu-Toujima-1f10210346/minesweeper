@@ -125,7 +125,6 @@ const Home = () => {
   };
 
   //boardにbombMapをセットする
-
   const mergeMap = (a: number[][], b: number[][]) => {
     for (let i = 0; i < a.length; i++) {
       for (let j = 0; j < a[i].length; j++) {
@@ -199,6 +198,18 @@ const Home = () => {
     console.table(userInputs);
   };
 
+  const showBomb = () => {
+    const newBoard = [...userInputs];
+    for (let i = 0; i < newBoard.length; i++) {
+      for (let j = 0; j < newBoard[i].length; j++) {
+        if (bombMap[i][j] === 11) {
+          newBoard[i][j] = 0;
+        }
+      }
+    }
+    setUserInputs(newBoard);
+  };
+
   const judge = () => {
     //userInputsの全ての10の位置がbombMapの11の位置と一致していたらクリア
     const flag = userInputs.every((row, y) => {
@@ -209,7 +220,6 @@ const Home = () => {
     if (flag) {
       console.log('clear!!!!');
       setGameOver('clear');
-      document.getElementsByClassName(styles.gameover)[0].innerHTML = 'クリア!';
     }
   };
 
@@ -220,6 +230,7 @@ const Home = () => {
     }
     if (bombMap[y][x] === 11) {
       console.log('gameover');
+      showBomb();
       setGameOver('gameover');
       // document.getElementsByClassName(styles.gameover)[0].innerHTML = 'ぼかーん!';
     }
